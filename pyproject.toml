@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "exercise-template"
+version = "0.1.0"
+description = ""
+authors = ["Zachary Freed <zachary.freed@softwire.com>"]
+readme = "README.md"
+packages = [
+  {include = "src"}
+]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+[tool.poetry.scripts]
+main = "src.main:main"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
