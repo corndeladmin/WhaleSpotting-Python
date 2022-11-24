@@ -21,4 +21,4 @@ Your trainer can show you how to do this, if you need any help.
 `poetry install`
 
 6. Run this command to run your code:  
-`poetry run main.py`
+`poetry run start`

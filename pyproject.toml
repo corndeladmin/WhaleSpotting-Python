@@ -12,7 +12,7 @@ packages = [
 python = "^3.10"
 
 [tool.poetry.scripts]
-main = "src.main:main"
+start = "src:main"
 
 [build-system]
 requires = ["poetry-core"]
