@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <link rel="stylesheet" href="{{ url_for('static', filename='app.css') }}">
+
+        <title>{% block title %}Whale Spotting{% endblock %}</title>
+    </head>
+    <body style="margin: 0;">
+        {% include 'navbar.html' %}
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert">
+                        <p>{{ message }}</p>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <main class="content-container">
+            {% block content %}{% endblock %}
+        </main>
+    </body>
+</html>

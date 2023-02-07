@@ -1,0 +1,27 @@
+<nav class="navbar-container">
+    <a class="navbar-icon" href="#">Whale Spotting</a>
+    
+    <ul class="navbar">
+        <li class="navbar-item">
+            <a class="navbar-link" href="{{ url_for('home_page') }}">Home</a>
+        </li>
+        <li class="navbar-item">
+            <a class="navbar-link" href="{{ url_for('member_page') }}">Members</a>
+        </li>
+        <li class="navbar-item">
+            <a class="navbar-link" href="{{ url_for('admin_page') }}">Admin</a>
+        </li>
+        {% if session['logged_in'] %}
+            <li class="navbar-item">
+                <a class="navbar-link" href="{{ url_for('user.logout') }}">Sign Out</a>
+            </li>
+        {% else %}
+            <li class="navbar-item">
+                <a class="navbar-link" href="{{ url_for('user.register') }}">Register</a>
+            </li>
+            <li class="navbar-item">
+                <a class="navbar-link" href="{{ url_for('user.login') }}">Sign In</a>
+            </li>
+        {% endif %}
+    </ul>
+</nav>
