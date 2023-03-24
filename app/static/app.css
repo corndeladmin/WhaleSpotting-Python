@@ -1,0 +1,61 @@
+.navbar-container { 
+    display: flex;
+    flex-direction: row;
+
+    background-color: rgba(27, 61, 175, 0.849); 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.navbar-icon {
+    color: rgba(255, 255, 255, 0.833);
+
+    text-decoration: none;
+    font-size: 2.5rem;
+    font-weight: 200;
+    white-space:nowrap;
+
+    padding: 1rem;
+}
+
+.navbar {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+
+    padding-left: 1rem;
+}
+
+.navbar-item {
+    padding: 1rem;
+}
+
+.navbar-link {
+    color: rgba(255, 255, 255, 0.642);
+
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 500;
+    white-space:nowrap;
+}
+
+.content-container {
+    display: flex;
+    flex-direction: column;
+
+    margin: 2rem 4rem;
+
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.alert {
+    display: flex;
+    flex-direction: row;
+    margin: 2rem 2rem 0.5rem;
+    padding: 0.5rem 2rem;
+
+    border: 1px solid #888;
+    border-radius: 4px;
+    background-color: rgba(27, 76, 175, 0.307);
+
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
