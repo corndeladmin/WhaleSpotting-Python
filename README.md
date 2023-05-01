@@ -21,42 +21,42 @@ Your trainer can show you how to do this, if you need any help.
 
 6. Copy the `.env-template` file to a new `.env` file. This `.env` file shouldn't ever be committed (and is already included in the `.gitignore`) as it may contain secrets.
 
-7. Make sure you've got PostgreSQL installed. You'll notice that your `.env` file contains POSTGRES config variables. As well as installing Postgres we need to make sure we have a user set up to match that config, with the right permissions to create the database when the app runs. All instructions for this step are in the `Install Postgres` section below. 
+7. Follow the instructions in the section `Setting up Postgres` below to ensure that the database is ready for use. (You'll notice that your `.env` file contains POSTGRES config variables. The instructions below setup a user to match that config, with the right permissions to create the database when the app runs.)
 
 8. Run this command to run your code:  
 `poetry run flask run`
 
-## Install Postgres
+9. The app should now be available at `http://localhost:5000`
 
-Before you run the app you will need to make sure you've got Postgres installed.
+## Setting up Postgres
+
+Before you run the app you will need to make sure you've got Postgres installed and a database set up by following the instructions below.
+
+### Install Postgres
 
 1. Download and install the [PostgreSQL server software](https://www.enterprisedb.com/downloads/postgres-postgresql-downloads) if you haven't already.
 
-2. Make sure you've added Postgres to your PATH (`C:\Program Files\PostgreSQL\<your version number>\bin`).
+2. Open the Windows Start menu and search for "pgAdmin". When you start "pgAdmin" for the first time, you'll be asked to set a master password.
 
-3. Open the Windows Start menu and search for "pgAdmin". When you start "pgAdmin" for the first time, you'll be asked to set a password for your superuser. You'll need this password in a moment on step 4. 
+### Set up Whalespotting user
 
-4. Open a terminal and type `psql -U postgres` - `postgres` is the username of your superuser that you just set the password for. You should be prompted to enter that password, and then see the terminal prompt `postgres=#`. We can now start running some SQL from the terminal.
+1. Inside your PostgreSQL server in pgAdmin, right-click on *Login/Group Roles* and create a new Login/Group Role with the name `whalespotting` (in the *General* tab), the password `whalespotting` (in the *Definition* tab) and the ability to log in and create databases (in the *Privileges* tab).
 
-5. We don't want to run our app with our superuser, so we're going to create a new user just for Whalespotting. To make things simpler, the `.env` file is set up with `whalespotting` set as the server, database, username and password, so we need to set up to match this.
+2. Click `Save` to create the user.
 
-6. From the terminal, type `\du` to see your current list of Postgres users. It's likely you'll just have one (your `postgres` superuser).
+### Set up Whalespotting database
 
-7. Now type, `CREATE USER whalespotting WITH PASSWORD 'whalespotting';`. Make sure not to miss the `;` off the end of your SQL commands.
+1. Inside your PostgreSQL server in pgAdmin, right-click on Databases and create a new Database with the name `whalespotting` and the owner `whalespotting` (both in the General tab).
 
-8. If you type `\du` again you should see a new user - `whalespotting` - has been created. They still don't have any privileges though, so they can't create a database, which we need to do for the app to run. To give the user privileges type `ALTER USER whalespotting WITH CREATEDB`. If you run `\du` one last time you should now be able to check that your user `whalespotting` has the `Create DB` role attribute listed next to it.
+2. Click `Save` to create the database.
 
-9. Finally we need to set up a server instance. You can create one in "pgAdmin" by following these steps:
-    a. Click 'Add new server' in Quick Links
-    b. Fill out the required information for the new server instance.
-        - General | name: `whalespotting`
-        - Connection | Host name: `localhost`
-        - Connection | Username: `whalespotting`
-        - Connection | Password: `whalespotting`
-        - Leave everything else as the default values (Port, Maintenance database etc.)
-    c. Click the "Save" button to create the server instance.
+## Main dependencies
 
-10. Start the server instance by right-clicking on it in the object browser and selecting "Start/Restart Server".
+*   The overall application framework is [Flask](https://flask.palletsprojects.com/), with routing setup in `app/__init.py` and page templates under `templates/`.
+
+*   [SQL Alchemy](https://www.sqlalchemy.org/) is the ORM (Object-Relational Mapper) that provides object-based interaction with the database.
+
+*   Migrations (database schema changes) are implemented with [Alembic](https://alembic.sqlalchemy.org/) - see below.
 
 ## Migrations
 
@@ -70,7 +70,7 @@ If you add a new model in the `models` directory, it's likely you'll want this t
     - It's important to note here that your new class _must_ extend `db.Model`
 2. Add your new file to the imports in `migrations/env.py` on line 35.
 
-### Migration Troubleshooting
+### Migration troubleshooting
 
 There are [known limitations](https://alembic.sqlalchemy.org/en/latest/autogenerate.html#what-does-autogenerate-detect-and-what-does-it-not-detect) to Alembic's autogenerated migrations, so if you're having trouble make sure you check the docs linked above as a first stop.
 
